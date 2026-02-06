@@ -3,6 +3,14 @@
 Application web PHP (PDO) + MySQL permettant de commander des menus pour des événements, 
 avec gestion des rôles (admin / employé / utilisateur), suivi de commandes, annulation et gestion/modération des avis.
 
+Accès au projet
+
+- Code source (GitHub) :
+  https://github.com/ilyes-madi/vite-gourmand
+
+- Démo en ligne :
+  Hébergement en cours (AlwaysData)
+
  Fonctionnalités:
 
  Côté utilisateur:
