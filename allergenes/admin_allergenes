@@ -1,0 +1,50 @@
+<?php
+require_once __DIR__ . '/../auth.php';
+requireAdmin();
+require_once __DIR__ . '/../db.php';
+
+$stmt = $pdo->query("SELECT id, name FROM allergenes ORDER BY name ASC");
+$allergenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Allergènes</title>
+</head>
+<body>
+  <h1>Liste des allergènes</h1>
+
+  <p><a href="../admin.php">← Retour admin</a> | <a href="admin_allergene_create.php">+ Ajouter un allergène</a></p>
+
+  <?php if (!$allergenes): ?>
+    <p>Aucun allergène pour le moment.</p>
+  <?php else: ?>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($allergenes as $a): ?>
+          <tr>
+            <td><?= (int)$a['id'] ?></td>
+            <td><?= htmlspecialchars($a['name']) ?></td>
+            <td>
+              <a href="admin_allergene_edit.php?id=<?= (int)$a['id'] ?>">Modifier</a>
+              |
+              <form method="post" action="admin_allergene_delete.php" style="display:inline;" onsubmit="return confirm('Supprimer cet allergène ?');">
+                <input type="hidden" name="id" value="<?= (int)$a['id'] ?>">
+                <button type="submit">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  <?php endif; ?>
+</body>
+</html>
